@@ -3,13 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ada Reyes — Portfolio</title>
+<title>Azeemah Balogun — Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 
-  /* ============ TOKENS ============ */
   :root{
     --navy:        #101d33;
     --navy-deep:   #0a1424;
@@ -57,8 +56,7 @@
     margin:0 auto;
     padding: 0 20px;
   }
-
-  /* corner registration marks — the signature element */
+  
   .plate{
     position:relative;
     border:1px solid var(--blueprint-dim);
@@ -77,7 +75,6 @@
   .plate .c2::before{ bottom:-1px; left:-1px; border-width:0 0 2px 2px; }
   .plate .c2::after{ bottom:-1px; right:-1px; border-width:0 2px 2px 0; }
 
-  /* ============ NAV / TITLE BLOCK ============ */
   header{
     position:sticky; top:0; z-index:50;
     background: rgba(10,20,36,0.92);
@@ -149,7 +146,6 @@
     nav a:hover::after{ width:100%; }
   }
 
-  /* ============ HERO ============ */
   .hero{
     padding: 64px 0 56px;
     position:relative;
@@ -222,7 +218,6 @@
   .btn:hover.solid{ background:#f2b25a; }
   .btn:hover.ghost{ background:rgba(110,198,220,0.08); }
 
-  /* ============ SECTION HEADERS ============ */
   section{ padding: 60px 0; }
   .section-head{
     display:flex;
@@ -249,7 +244,6 @@
     background:var(--blueprint-dim);
   }
 
-  /* ============ PROJECTS GRID ============ */
   .grid{
     display:grid;
     grid-template-columns: 1fr;
@@ -325,7 +319,6 @@
     align-self:flex-start;
   }
 
-  /* ============ ABOUT / SKILLS ============ */
   .about-grid{
     display:grid;
     gap:34px;
@@ -356,7 +349,6 @@
   }
   .skill-list li span{ color:var(--blueprint); }
 
-  /* ============ CONTACT ============ */
   .contact-plate{
     background:var(--paper);
     color:var(--ink);
