@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ada Reyes — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+  /* ============ TOKENS ============ */
+  :root{
+    --navy:        #101d33;
+    --navy-deep:   #0a1424;
+    --paper:       #f3efe4;
+    --paper-line:  #d9d2bd;
+    --ink:         #1c2230;
+    --blueprint:   #6ec6dc;
+    --blueprint-dim:#3a5b6b;
+    --amber:       #e8a33d;
+    --slate:       #8b9bb4;
+    --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+    --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration:0.01ms !important; transition-duration:0.01ms !important; }
+  }
+
+  body{
+    margin:0;
+    background:var(--navy);
+    color:var(--slate);
+    font-family:var(--font-sans);
+    line-height:1.55;
+    background-image:
+      linear-gradient(rgba(110,198,220,0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(110,198,220,0.055) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  a{ color:inherit; }
+  img{ max-width:100%; display:block; }
+
+  :focus-visible{
+    outline: 2px solid var(--amber);
+    outline-offset: 3px;
+  }
+
+  .wrap{
+    max-width: 1180px;
+    margin:0 auto;
+    padding: 0 20px;
+  }
+
+  /* corner registration marks — the signature element */
+  .plate{
+    position:relative;
+    border:1px solid var(--blueprint-dim);
+  }
+  .plate::before, .plate::after,
+  .plate .c2::before, .plate .c2::after{
+    content:"";
+    position:absolute;
+    width:14px; height:14px;
+    border-color: var(--blueprint);
+    border-style:solid;
+    opacity:0.8;
+  }
+  .plate::before{ top:-1px; left:-1px; border-width:2px 0 0 2px; }
+  .plate::after{ top:-1px; right:-1px; border-width:2px 2px 0 0; }
+  .plate .c2::before{ bottom:-1px; left:-1px; border-width:0 0 2px 2px; }
+  .plate .c2::after{ bottom:-1px; right:-1px; border-width:0 2px 2px 0; }
+
+  /* ============ NAV / TITLE BLOCK ============ */
+  header{
+    position:sticky; top:0; z-index:50;
+    background: rgba(10,20,36,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom:1px solid var(--blueprint-dim);
+  }
+  .nav{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    padding:16px 0;
+  }
+  .nav-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .brand{
+    font-family:var(--font-mono);
+    font-weight:600;
+    color:var(--paper);
+    font-size:0.95rem;
+    letter-spacing:0.02em;
+  }
+  .brand span{ color:var(--blueprint); }
+  .menu-btn{
+    background:none;
+    border:1px solid var(--blueprint-dim);
+    color:var(--blueprint);
+    font-family:var(--font-mono);
+    font-size:0.75rem;
+    padding:6px 10px;
+    cursor:pointer;
+    display:inline-block;
+  }
+  nav ul{
+    list-style:none;
+    margin:0; padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+  }
+  nav ul.open{ display:flex; }
+  nav ul:not(.open){ display:none; }
+  nav a{
+    display:block;
+    text-decoration:none;
+    font-family:var(--font-mono);
+    font-size:0.8rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--slate);
+    padding:8px 4px;
+    border-bottom:1px dashed var(--blueprint-dim);
+  }
+  nav a:hover{ color:var(--amber); }
+
+  @media (min-width:600px){
+    .menu-btn{ display:none; }
+    .nav{ flex-direction:row; align-items:center; justify-content:space-between; }
+    nav ul:not(.open){ display:flex; }
+    nav ul{ flex-direction:row; gap:26px; }
+    nav a{ border-bottom:none; padding:4px 0; position:relative; }
+    nav a::after{
+      content:""; position:absolute; left:0; bottom:-4px;
+      width:0; height:2px; background:var(--amber);
+      transition:width 0.2s ease;
+    }
+    nav a:hover::after{ width:100%; }
+  }
+
+  /* ============ HERO ============ */
+  .hero{
+    padding: 64px 0 56px;
+    position:relative;
+  }
+  .eyebrow{
+    font-family:var(--font-mono);
+    color:var(--blueprint);
+    font-size:0.72rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    margin:0 0 18px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:26px; height:1px;
+    background:var(--blueprint);
+    display:inline-block;
+  }
+  h1{
+    font-family:var(--font-sans);
+    font-weight:700;
+    color:var(--paper);
+    font-size: clamp(2.1rem, 5.6vw, 4.2rem);
+    line-height:1.05;
+    letter-spacing:-0.01em;
+    margin:0 0 20px;
+  }
+  .hero p.lede{
+    font-size: clamp(0.98rem, 1.6vw, 1.15rem);
+    max-width: 56ch;
+    color:var(--slate);
+    margin:0 0 30px;
+  }
+  .dim-line{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:var(--font-mono);
+    font-size:0.72rem;
+    color:var(--blueprint-dim);
+    margin-bottom:36px;
+  }
+  .dim-line::before, .dim-line::after{
+    content:""; flex:1; height:1px; background:var(--blueprint-dim);
+  }
+  .cta-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:14px;
+  }
+  .btn{
+    font-family:var(--font-mono);
+    font-size:0.8rem;
+    letter-spacing:0.04em;
+    text-decoration:none;
+    padding:12px 22px;
+    display:inline-block;
+    border:1px solid var(--blueprint);
+  }
+  .btn.solid{
+    background:var(--amber);
+    border-color:var(--amber);
+    color:var(--navy-deep);
+    font-weight:600;
+  }
+  .btn.ghost{ color:var(--blueprint); }
+  .btn:hover.solid{ background:#f2b25a; }
+  .btn:hover.ghost{ background:rgba(110,198,220,0.08); }
+
+  /* ============ SECTION HEADERS ============ */
+  section{ padding: 60px 0; }
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:16px;
+    margin-bottom:34px;
+    flex-wrap:wrap;
+  }
+  .section-num{
+    font-family:var(--font-mono);
+    color:var(--amber);
+    font-size:0.8rem;
+  }
+  h2{
+    font-family:var(--font-sans);
+    font-weight:700;
+    color:var(--paper);
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    margin:0;
+  }
+  .section-head .rule{
+    flex:1; min-width:40px;
+    height:1px;
+    background:var(--blueprint-dim);
+  }
+
+  /* ============ PROJECTS GRID ============ */
+  .grid{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap:20px;
+  }
+  @media (min-width:600px){
+    .grid{ grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width:900px){
+    .grid{ grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .card{
+    background:var(--paper);
+    color:var(--ink);
+    padding:22px 20px 24px;
+    display:flex;
+    flex-direction:column;
+    min-height:100%;
+  }
+  .card .tag{
+    font-family:var(--font-mono);
+    font-size:0.68rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--blueprint-dim);
+    margin-bottom:10px;
+  }
+  .card h3{
+    font-family:var(--font-sans);
+    font-size:1.15rem;
+    margin:0 0 10px;
+  }
+  .card p{
+    font-size:0.9rem;
+    color:#4a4438;
+    margin:0 0 16px;
+    flex-grow:1;
+  }
+  .card .stack{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-bottom:16px;
+  }
+  .card .stack span{
+    font-family:var(--font-mono);
+    font-size:0.66rem;
+    border:1px solid var(--paper-line);
+    padding:3px 8px;
+    color:#5c5540;
+  }
+  .card .thumb{
+    width:100%;
+    aspect-ratio: 16/9;
+    margin-bottom:14px;
+    background:
+      repeating-linear-gradient(45deg, #e4dcc6, #e4dcc6 10px, #ded5bc 10px, #ded5bc 20px);
+    border:1px solid var(--paper-line);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:var(--font-mono);
+    font-size:0.7rem;
+    color:#8a8168;
+  }
+  .card a.link{
+    font-family:var(--font-mono);
+    font-size:0.76rem;
+    color:var(--navy);
+    text-decoration:none;
+    border-bottom:1px solid var(--navy);
+    align-self:flex-start;
+  }
+
+  /* ============ ABOUT / SKILLS ============ */
+  .about-grid{
+    display:grid;
+    gap:34px;
+    grid-template-columns:1fr;
+  }
+  @media (min-width:900px){
+    .about-grid{ grid-template-columns: 1.1fr 0.9fr; }
+  }
+  .about-grid p{ max-width:60ch; }
+  .skill-list{
+    list-style:none;
+    margin:0; padding:0;
+    display:grid;
+    grid-template-columns:1fr;
+    gap:0;
+  }
+  @media (min-width:600px){
+    .skill-list{ grid-template-columns: 1fr 1fr; }
+  }
+  .skill-list li{
+    font-family:var(--font-mono);
+    font-size:0.82rem;
+    color:var(--paper);
+    padding:11px 0;
+    border-bottom:1px dashed var(--blueprint-dim);
+    display:flex;
+    justify-content:space-between;
+  }
+  .skill-list li span{ color:var(--blueprint); }
+
+  /* ============ CONTACT ============ */
+  .contact-plate{
+    background:var(--paper);
+    color:var(--ink);
+    padding: 34px 26px;
+    max-width: 640px;
+  }
+  .contact-plate h2{ color:var(--ink); }
+  .field{ margin-bottom:18px; }
+  label{
+    display:block;
+    font-family:var(--font-mono);
+    font-size:0.7rem;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:#5c5540;
+    margin-bottom:6px;
+  }
+  input, textarea{
+    width:100%;
+    font-family:var(--font-sans);
+    font-size:0.95rem;
+    padding:10px 12px;
+    border:1px solid var(--paper-line);
+    background:#fbf9f2;
+    color:var(--ink);
+  }
+  textarea{ min-height:120px; resize:vertical; }
+  .contact-plate .btn.solid{ border:none; cursor:pointer; }
+  .contact-meta{
+    margin-top:26px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:22px;
+    font-family:var(--font-mono);
+    font-size:0.78rem;
+  }
+  .contact-meta a{ text-decoration:none; border-bottom:1px solid var(--navy); }
+
+  footer{
+    padding: 30px 0 50px;
+    text-align:center;
+  }
+  footer p{
+    font-family:var(--font-mono);
+    font-size:0.7rem;
+    color:var(--blueprint-dim);
+    letter-spacing:0.05em;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="nav-top">
+      <a class="brand" href="#top">Azeemah<span>.</span>Balogun</a>
+      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navList">MENU</button>
+    </div>
+    <nav>
+      <ul id="navList">
+        <li><a href="#top">Home</a></li>
+        <li><a href="#work">Build Log</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Foundations Capstone — Rev. 03</p>
+      <h1>Front-end builds,<br>drafted mobile-first.</h1>
+      <p class="lede">I'm Balogun Azeemah, a front-end developer who treats every layout like a set of working drawings — measured, responsive, and built to hold up on any screen size.</p>
+      <div class="dim-line">600PX — 900PX — FLUID</div>
+      <div class="cta-row">
+        <a class="btn solid" href="#work">View the build log</a>
+        <a class="btn ghost" href="#contact">Get in touch</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-num">01</span>
+        <h2>Build Log</h2>
+        <span class="rule"></span>
+      </div>
+      <div class="grid">
+
+        <div class="plate">
+          <div class="thumb">PROFILE — 04:03</div>
+          <div class="card">
+            <span class="tag">Week 01 · Profile Page</span>
+            <h3>Developer Profile</h3>
+            <p>A single-page bio built to practice semantic HTML,Boostrap and a clean type hierarchy before any CSS framework entered the picture.</p>
+            <div class="stack"><span>HTML5</span><span>CSS Grid</span></div>
+            <a class="link" href="#">View project →</a>
+          </div>
+          <div class="c2"></div>
+        </div>
+
+        <div class="plate">
+          <div class="thumb">TIMETABLE — 04:12</div>
+          <div class="card">
+            <span class="tag">Week 02 · Timetable</span>
+            <h3>Class Timetable</h3>
+            <p>A responsive schedule table that reflows from a seven-column grid into stacked day cards below 600px.</p>
+            <div class="stack"><span>CSS Tables</span><span>Media Queries</span></div>
+            <a class="link" href="#">View project →</a>
+          </div>
+          <div class="c2"></div>
+        </div>
+
+        <div class="plate">
+          <div class="thumb">LANDING — 04:21</div>
+          <div class="card">
+            <span class="tag">Week 02 · Landing Page</span>
+            <h3>Product Landing Page</h3>
+            <p>A marketing page for a fictional product, with a flexbox hero and a pricing section built on auto-fit grid.</p>
+            <div class="stack"><span>Flexbox</span><span>Auto-fit Grid</span></div>
+            <a class="link" href="#">View project →</a>
+          </div>
+          <div class="c2"></div>
+        </div>
+
+        <div class="plate">
+          <div class="thumb">GALLERY — 04:27</div>
+          <div class="card">
+            <span class="tag">Week 03 · Gallery</span>
+            <h3>Image Gallery</h3>
+            <p>A lightbox-free gallery using CSS Grid's auto-fit and minmax to stay balanced from phone to desktop.</p>
+            <div class="stack"><span>CSS Grid</span><span>Aspect-ratio</span></div>
+            <a class="link" href="#">View project →</a>
+          </div>
+          <div class="c2"></div>
+        </div>
+
+        <div class="plate">
+          <div class="thumb">THIS SITE — 04:30</div>
+          <div class="card">
+            <span class="tag">Week 03 · Capstone</span>
+            <h3>This Portfolio</h3>
+            <p>The site you're looking at now — a mobile-first build with a collapsing navbar and two responsive breakpoints.</p>
+            <div class="stack"><span>Mobile-first</span><span>Flexbox + Grid</span></div>
+            <a class="link" href="#">Source →</a>
+          </div>
+          <div class="c2"></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-num">02</span>
+        <h2>About</h2>
+        <span class="rule"></span>
+      </div>
+      <div class="about-grid">
+        <p>I started this course knowing how to make a page — this capstone is about making a page that behaves. Every build above began as a fixed-width sketch and was reworked mobile-first: base styles for a phone, then layered breakpoints for tablet and desktop, rather than the other way around.</p>
+        <ul class="skill-list">
+          <li>HTML5 <span>Semantic</span></li>
+          <li>CSS3 <span>Flexbox / Grid</span></li>
+          <li>Responsive Design <span>Mobile-first</span></li>
+          <li>Media Queries <span>600 / 900px</span></li>
+          <li>Typography <span>Fluid / clamp()</span></li>
+          <li>Git <span>Version control</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="section-num">03</span>
+        <h2>Contact</h2>
+        <span class="rule"></span>
+      </div>
+      <div class="contact-plate">
+        <h2 style="margin-bottom:8px;">Start a project</h2>
+        <p style="color:#5c5540; margin-top:0; margin-bottom:24px; font-size:0.9rem;">Send a note and I'll get back within a couple of days.</p>
+        <form onsubmit="event.preventDefault(); this.reset(); document.getElementById('sentMsg').style.display='block';">
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name" type="text" required>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" type="email" required>
+          </div>
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" required></textarea>
+          </div>
+          <button class="btn solid" type="submit">Send message</button>
+          <p id="sentMsg" style="display:none; margin-top:14px; font-family:var(--font-mono); font-size:0.78rem; color:#3a6b4a;">Message sent — thanks, I'll be in touch.</p>
+        </form>
+        <div class="contact-meta">
+          <a href="mailto:ada.reyes@example.com">balogunazeemah@gmail.com</a>
+          <a href="#">github.com/zeemah1234</a>
+          <a href="#">linkedin.com/in/balogunazeeemah</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>DRAWN MOBILE-FIRST · BREAKPOINTS 600 / 900 · © 2026 Balogun Azeemah</p>
+</footer>
+
+<script>
+  const menuBtn = document.getElementById('menuBtn');
+  const navList = document.getElementById('navList');
+  menuBtn.addEventListener('click', () => {
+    const isOpen = navList.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', isOpen);
+  });
+  navList.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navList.classList.remove('open');
+    menuBtn.setAttribute('aria-expanded', 'false');
+  }));
+</script>
+
+</body>
+</html>
